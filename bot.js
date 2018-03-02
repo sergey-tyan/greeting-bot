@@ -40,4 +40,16 @@ bot.on('new_chat_members', (msg)=> {
 
     ${greetingPart}`;
     bot.sendMessage(msg.chat.id, greeting, {parse_mode:'Markdown'});
-})
+});
+
+bot.onText(/вакансия/, (msg, match) => {
+    const chatId = msg.chat.id;
+    if(msg.text.length < 300){
+
+        const { first_name, last_name, username } = msg.from;
+        const name = username ? username : `${first_name} ${last_name}`;
+        const reply = `[${name}](tg://user?id=${msg.from.id}) пожалуйста ознакомьтесь с рекомендациями по оформлению вакансий https://habrahabr.ru/post/285286/`;
+    
+        bot.sendMessage(chatId, reply, {parse_mode:'Markdown'});
+    }
+});
